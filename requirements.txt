@@ -1,0 +1,20 @@
+# Streamlit: Framework to build and run interactive web apps in Python
+streamlit>=1.31.0
+
+# Transformers: Used to load and use the GPT-2 model and tokenizer
+transformers>=4.40.0
+
+# PyTorch: Backend for running GPT-2 model computations
+torch>=2.1.0
+
+# NLTK (Natural Language Toolkit): Used for text preprocessing, tokenizing, stopwords, frequency distribution
+nltk>=3.8.1
+
+# Plotly: For interactive and beautiful bar charts (Top 10 repeated words)
+plotly>=5.20.0
+
+# pandas: Optional but recommended – used internally by Plotly for data handling
+pandas>=2.2.2
+
+# numpy: Optional but recommended – used in many computations under the hood
+numpy>=1.26.4
