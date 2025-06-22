@@ -22,7 +22,8 @@ for res in ['stopwords', 'brown']:
 
 # Load GPT-2
 tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
-model = GPT2LMHeadModel.from_pretrained('gpt2')
+model = GPT2LMHeadModel.from_pretrained('gpt2', torch_dtype=torch.float32)
+model.to('cpu')
 
 # Tokenization without punkt
 def simple_tokenize(text):
