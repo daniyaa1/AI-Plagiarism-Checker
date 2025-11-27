@@ -9,7 +9,9 @@ It uses two main things:
 I also added some cool visuals and made the interface a little more engaging using HTML, CSS, and JavaScript inside Streamlit.
 
 ---
+## Live App Link : https://daniyaa1-ai-plagiarism-checker-test-uxus3f.streamlit.app/
 
+---
 ## 🔹 What It Does
 
 - You enter any text into the app
