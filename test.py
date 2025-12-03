@@ -20,16 +20,25 @@ for res in ['stopwords', 'brown']:
     except LookupError:
         nltk.download(res, download_dir=nltk_data_path)
 
-# Load GPT-2
-tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
-model = GPT2LMHeadModel.from_pretrained('gpt2', torch_dtype=torch.float32)
-model.to('cpu')
+# Load GPT-2 (called only when needed)
+@st.cache_resource
+def load_model():
+    try:
+        tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+        model = GPT2LMHeadModel.from_pretrained('gpt2', torch_dtype=torch.float32)
+        model.to('cpu')
+        return tokenizer, model
+    except Exception as e:
+        st.error(f"Failed to load model: {e}")
+        return None, None
 
 # Tokenization without punkt
 def simple_tokenize(text):
     return re.findall(r'\b\w+\b', text.lower())
 
-def calculate_perplexity(text):
+def calculate_perplexity(text, tokenizer, model):
+    if tokenizer is None or model is None:
+        return float('inf')
     inputs = tokenizer(text, return_tensors="pt", truncation=True, max_length=1024)
     with torch.no_grad():
         outputs = model(**inputs, labels=inputs["input_ids"])
@@ -131,6 +140,9 @@ if st.button("Analyze"):
     if not text_input.strip():
         st.warning("Please enter some text.")
     else:
+        # Load model only when needed
+        tokenizer, model = load_model()
+        
         col1, col2, col3 = st.columns(3)
 
         with col1:
@@ -139,7 +151,7 @@ if st.button("Analyze"):
 
         with col2:
             st.subheader("Detection Score")
-            perplexity = calculate_perplexity(text_input)
+            perplexity = calculate_perplexity(text_input, tokenizer, model)
             burstiness = calculate_burstiness(text_input)
             st.write("Perplexity:", round(perplexity, 2))
             st.write("Burstiness Score:", round(burstiness, 2))

@@ -43,7 +43,7 @@ I also added some cool visuals and made the interface a little more engaging usi
 
 2.Install the required packages:   pip install -r requirements.txt
 
-3.Run the App : streamlit run app.py
+3.Run the App : streamlit run test.py
 
 
 

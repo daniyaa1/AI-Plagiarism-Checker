@@ -1,0 +1,7 @@
+__pycache__/
+.vscode/
+*.pickle
+*.pkl
+nltk_data/
+.ipynb_checkpoints/
+.DS_Store
